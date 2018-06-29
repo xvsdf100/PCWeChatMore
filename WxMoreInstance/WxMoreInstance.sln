@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WxMoreInstance", "WxMoreInstance\WxMoreInstance.vcproj", "{C3DE2CF4-F23C-413A-AA20-8EED0FF773BD}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "InjectDll", "InjectDll\InjectDll.vcproj", "{2AB2BEF0-B185-4381-AE5E-1BD03C7B3A5D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C3DE2CF4-F23C-413A-AA20-8EED0FF773BD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C3DE2CF4-F23C-413A-AA20-8EED0FF773BD}.Debug|Win32.Build.0 = Debug|Win32
+		{C3DE2CF4-F23C-413A-AA20-8EED0FF773BD}.Release|Win32.ActiveCfg = Release|Win32
+		{C3DE2CF4-F23C-413A-AA20-8EED0FF773BD}.Release|Win32.Build.0 = Release|Win32
+		{2AB2BEF0-B185-4381-AE5E-1BD03C7B3A5D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2AB2BEF0-B185-4381-AE5E-1BD03C7B3A5D}.Debug|Win32.Build.0 = Debug|Win32
+		{2AB2BEF0-B185-4381-AE5E-1BD03C7B3A5D}.Release|Win32.ActiveCfg = Release|Win32
+		{2AB2BEF0-B185-4381-AE5E-1BD03C7B3A5D}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
