@@ -11,6 +11,7 @@
 bool IsWeChat();
 void CloseWxHandle(HANDLE mutex);
 void UnHookLib();
+bool isWechatClose();
 
 // 这是导出变量的一个示例
 INJECTDLL_API int nInjectDll=0;
@@ -43,8 +44,19 @@ LRESULT CALLBACK HOOKProc(
 							  _In_  LPARAM lParam
 							  )
 {
-	HandleWxInstanceMutex();
-	return CallNextHookEx(g_Hook, code, wParam, lParam);
+	if(IsWeChat()){
+		HandleWxInstanceMutex();
+		if (wParam == WM_CLOSE){
+			//窗口关闭卸载钩子
+			UnHook();
+		}
+		return CallNextHookEx(g_Hook, code, wParam, lParam);
+	}else{
+
+
+		//UnHook();
+		return FALSE;
+	}
 }
 
 bool StartHook()
@@ -99,7 +111,7 @@ bool IsWeChat(){
 
 void HandleWxInstanceMutex(){
 	if(IsWeChat()){
-		if(!isKilled){
+		if(!isWechatClose()){
 			//_WeChat_App_Instance_Identity_Mutex_Name
 			HANDLE hmutex = CreateMutex(NULL,TRUE,L"_WeChat_App_Instance_Identity_Mutex_Name");
 			int err = GetLastError();
@@ -111,17 +123,35 @@ void HandleWxInstanceMutex(){
 				isKilled = true;
 			}else{
 				
-				OutputDebugString(L"不存在，我也要关闭了句柄");
+				//OutputDebugString(L"不存在，我也要关闭了句柄");
 				CloseHandle(hmutex);	//也要关掉
 			}
 		}
 	}
 }
 
+
+bool isWechatClose(){
+	bool ret = true;
+	HANDLE hmutex = CreateMutex(NULL,TRUE,L"_WeChat_App_Instance_Identity_Mutex_Name");
+	int err = GetLastError();
+	if (err == ERROR_ALREADY_EXISTS)
+	{
+		ret = false;
+	}
+
+	CloseHandle(hmutex);
+	return ret;
+}
+
 void CloseWxHandle(HANDLE mutex){ 
 
-	OutputDebugString(L"杀死微信APP");
+	//OutputDebugString(L"杀死微信APP");
 	CloseProcessHandle(GetCurrentProcessId(), L"_WeChat_App_Instance_Identity_Mutex_Name");
+	//int err = GetLastError();
+	//WCHAR buffer[256] = {0};
+	//wsprintf(buffer, L"错误码:%d", err );
+	//OutputDebugString(buffer);
 }
 
 
