@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="界面">
+      <UniqueIdentifier>{18c3a0f5-27d4-43b2-bc7d-494d9703ff4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="界面\Tab">
+      <UniqueIdentifier>{cc21451e-3a81-48cf-bd57-c1908752928b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="交互消息">
+      <UniqueIdentifier>{8e507eec-a8f1-42f1-8081-844016cffaaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="数据">
+      <UniqueIdentifier>{2f567cce-bf73-4da9-aa4d-1645409f522d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="WxMoreInstance.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="WxMoreInstanceDlg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="WechatTab.cpp">
+      <Filter>界面\Tab</Filter>
+    </ClCompile>
+    <ClCompile Include="WechatTabUIData.cpp">
+      <Filter>界面\Tab</Filter>
+    </ClCompile>
+    <ClCompile Include="MessageHandleUI.cpp">
+      <Filter>交互消息</Filter>
+    </ClCompile>
+    <ClCompile Include="WeChatProcessInfo.cpp">
+      <Filter>数据</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="WxMoreInstance.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="WxMoreInstanceDlg.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="WechatTab.h">
+      <Filter>界面\Tab</Filter>
+    </ClInclude>
+    <ClInclude Include="WechatTabUIData.h">
+      <Filter>界面\Tab</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageHandleUI.h">
+      <Filter>交互消息</Filter>
+    </ClInclude>
+    <ClInclude Include="WeChatProcessInfo.h">
+      <Filter>数据</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\WxMoreInstance.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="WxMoreInstance.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\WxMoreInstance.rc2">
+      <Filter>资源文件</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+</Project>

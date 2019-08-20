@@ -1,9 +1,12 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WxMoreInstance", "WxMoreInstance\WxMoreInstance.vcproj", "{C3DE2CF4-F23C-413A-AA20-8EED0FF773BD}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WxMoreInstance", "WxMoreInstance\WxMoreInstance.vcxproj", "{C3DE2CF4-F23C-413A-AA20-8EED0FF773BD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2AB2BEF0-B185-4381-AE5E-1BD03C7B3A5D} = {2AB2BEF0-B185-4381-AE5E-1BD03C7B3A5D}
+	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "InjectDll", "InjectDll\InjectDll.vcproj", "{2AB2BEF0-B185-4381-AE5E-1BD03C7B3A5D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "InjectDll", "InjectDll\InjectDll.vcxproj", "{2AB2BEF0-B185-4381-AE5E-1BD03C7B3A5D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

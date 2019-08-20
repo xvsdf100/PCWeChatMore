@@ -3,7 +3,7 @@
 //
 
 #pragma once
-
+#include "WechatTab.h"
 
 // CWxMoreInstanceDlg ¶Ô»°¿ò
 class CWxMoreInstanceDlg : public CDialog
@@ -32,4 +32,11 @@ protected:
 public:
 	afx_msg void OnBnClickedOk();
 	afx_msg void OnBnClickedBtnMore();
+
+private:
+	WechatTab m_tab_ui;
+	CMessageHandleUI m_MessageHandleUI;
+public:
+	afx_msg void OnBnClickedButtonAdvance();
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 };

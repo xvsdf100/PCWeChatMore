@@ -9,7 +9,7 @@
 #endif
 
 #include "resource.h"		// 主符号
-
+#include "MessageHandleUI.h"
 
 // CWxMoreInstanceApp:
 // 有关此类的实现，请参阅 WxMoreInstance.cpp

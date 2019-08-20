@@ -6,12 +6,17 @@
 #include <stdio.h>  
 #include <cstdlib>
 #include "ProcessHandleHelper.h"
+#include <string>
 
+const int WM_CORE_WECHAT_MESSAGE_ = WM_USER + 1;
+const int WM_CORE_WECHAT_EXIT_MESSAGE = WM_USER + 2;	//对应的窗口关闭了
 
 bool IsWeChat();
 void CloseWxHandle(HANDLE mutex);
 void UnHookLib();
 bool isWechatClose();
+void HandleFirstHook();
+void HandleExitMessage(HWND hw);
 
 // 这是导出变量的一个示例
 INJECTDLL_API int nInjectDll=0;
@@ -35,6 +40,7 @@ void CloseWxHandle(HANDLE mutex);
 extern HMODULE g_Module;
 HHOOK g_Hook = 0;
 bool isKilled = false;			//是否把句柄杀死
+bool g_is_init = false;
 
 
 //钩子回调函数
@@ -46,10 +52,21 @@ LRESULT CALLBACK HOOKProc(
 {
 	if(IsWeChat()){
 		HandleWxInstanceMutex();
-		if (wParam == WM_CLOSE){
+		PMSG pmsg = (PMSG)lParam;
+		if (pmsg->message == WM_CLOSE){
 			//窗口关闭卸载钩子
+			//OutputDebugString(L"微信窗口关闭了");
+			HandleExitMessage(pmsg->hwnd);
 			UnHook();
+		}else
+		{
+			if(pmsg->message != WM_DESTROY){
+				HandleFirstHook();
+			}
+			
 		}
+
+		
 		return CallNextHookEx(g_Hook, code, wParam, lParam);
 	}else{
 
@@ -68,9 +85,9 @@ bool StartHook()
 
 		wchar_t exeName[300] = {0};
 		WCHAR szInfo[512] = { 0 };
-		swprintf_s(szInfo, _countof(szInfo), L"钩子失败了吗？:%d", error);
+		//swprintf_s(szInfo, _countof(szInfo), L"钩子失败了吗？:%d\r\n", error);
 		//将内容输出到debug信息中
-		OutputDebugString(szInfo);
+		//OutputDebugString(szInfo);
 
 		return true;
 	}
@@ -154,4 +171,53 @@ void CloseWxHandle(HANDLE mutex){
 	//OutputDebugString(buffer);
 }
 
+HWND FindWechatMessageUI(){
+	return ::FindWindow(NULL, L"CORE_MESSAGE_WX_WND");
+}
 
+//第一次Hook微信做的初始化工作
+void HandleFirstHook(){
+	HWND hw =  GetForegroundWindow();
+	WCHAR text[256] = {0};
+	GetWindowText(hw,text, 256);
+	//OutputDebugString(text);
+
+	GetClassName(hw,text, 256);
+	std::wstring class_name = text;
+	//OutputDebugString(text);
+	//WeChatLoginWndForPC
+	//WeChatMainWndForPC
+	std::wstring check_class_name = L"WeChatMainWndForPC";
+	if(class_name == check_class_name){
+		HWND core_hwnd = FindWechatMessageUI();
+		if(core_hwnd !=NULL){
+			PostMessage(core_hwnd, WM_CORE_WECHAT_MESSAGE_, 0, (LPARAM)hw);
+		}else{
+			//OutputDebugString(L"没有找到窗口");
+		}
+	}
+}
+
+void HandleExitMessage(HWND hw){
+	//WM_CORE_WECHAT_EXIT_MESSAGE
+	HWND core_hwnd = FindWechatMessageUI();
+	WCHAR text[256] = {0};
+	if(core_hwnd !=NULL){
+		swprintf_s(text,_countof(text), L"发送了消息-关闭消息:%d\r\n", hw);
+		OutputDebugString(text);
+		PostMessage(core_hwnd, WM_CORE_WECHAT_EXIT_MESSAGE, (WPARAM)hw, 0);	//不一定核心关闭窗口关闭了
+	}else{
+		OutputDebugString(L"没有找到窗口");
+	}
+}
+
+//保存当前顶层窗口句柄
+void SaveWechatHWND(){
+	//
+}
+
+
+//获取业务消息消息HWND
+HWND GetSuperMessageHWND(){
+	return 0;
+}

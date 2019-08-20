@@ -70,6 +70,8 @@ BEGIN_MESSAGE_MAP(CWxMoreInstanceDlg, CDialog)
 	//}}AFX_MSG_MAP
 	ON_BN_CLICKED(IDOK, &CWxMoreInstanceDlg::OnBnClickedOk)
 	ON_BN_CLICKED(IDC_BTN_MORE, &CWxMoreInstanceDlg::OnBnClickedBtnMore)
+	ON_BN_CLICKED(IDC_BUTTON_ADVANCE, &CWxMoreInstanceDlg::OnBnClickedButtonAdvance)
+	ON_WM_LBUTTONDOWN()
 END_MESSAGE_MAP()
 
 
@@ -106,6 +108,7 @@ BOOL CWxMoreInstanceDlg::OnInitDialog()
 
 	// TODO: 在此添加额外的初始化代码
 	checkInstance();		//测试自己的程序去的，跟微信没有任何关系
+	m_MessageHandleUI.Init();
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -163,24 +166,7 @@ void CWxMoreInstanceDlg::OnBnClickedOk()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	//杀死句柄
-	StartHook();
-
-	//HANDLE mutex1 = ::CreateMutex(NULL,FALSE,L"_WeChat_App_Instance_Identity_Mutex_Name");//这个句柄不行啊
-	/*HANDLE mutex1 = ::OpenMutex(MUTEX_ALL_ACCESS,FALSE,L"_WeChat_App_Instance_Identity_Mutex_Name1");//这个句柄不行啊
-	int err = GetLastError();
-	CloseHandle(mutex1);
-	printf("%d", err);
-
-	HANDLE hNewHandle = NULL;
-	BOOL bVal = DuplicateHandle(GetCurrentProcess(), mutex, GetCurrentProcess(), &hNewHandle, 0, FALSE, DUPLICATE_CLOSE_SOURCE);
-	if(bVal){
-		::MessageBox(NULL, L"xxxxxxxx", L"error", 0);
-	}else{
-		int err = GetLastError();
-		printf("%d", err);
-	}
-	CloseHandle(hNewHandle);*/
-
+	StartHook();	//测试屏蔽
 }
 
 BOOL checkMutex(){
@@ -209,5 +195,32 @@ void checkInstance(){
 void CWxMoreInstanceDlg::OnBnClickedBtnMore()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	ShellExecute(m_hWnd, _T("open"), _T("http://www.xiaoyutang.net/wordpress/?p=97"), NULL, NULL, SW_SHOWNORMAL);
+	ShellExecute(m_hWnd, _T("open"), _T("http://www.xiaoyutang.net/wordpress/?p=97"), NULL, NULL, SW_SHOWNORMAL);	//测试屏蔽
+}
+
+//高级版本，可以tab管理现有微信功能
+//点击逻辑：
+//1：隐藏主界面对话框
+//2：创建或者显示高级tab界面
+//3：同时启动hook功能，然后初始化微信hook函数功能
+void CWxMoreInstanceDlg::OnBnClickedButtonAdvance()
+{
+	if(!IsWindow(m_tab_ui.GetSafeHwnd())){
+		m_tab_ui.Create(m_tab_ui.IDD, GetDesktopWindow());
+		m_MessageHandleUI.SetWechatTabUI(m_tab_ui.GetSafeHwnd());
+		m_tab_ui.ShowWindow(SW_SHOW);
+	}
+
+	if(!m_tab_ui.IsWindowVisible()){
+		m_tab_ui.ShowWindow(SW_SHOW);
+	}
+}
+
+
+void CWxMoreInstanceDlg::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+
+	//AfxMessageBox(L"hello world");
+	CDialog::OnLButtonDown(nFlags, point);
 }
