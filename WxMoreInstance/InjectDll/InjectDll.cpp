@@ -130,19 +130,10 @@ void HandleWxInstanceMutex(){
 	if(IsWeChat()){
 		if(!isWechatClose()){
 			//_WeChat_App_Instance_Identity_Mutex_Name
-			HANDLE hmutex = CreateMutex(NULL,TRUE,L"_WeChat_App_Instance_Identity_Mutex_Name");
-			int err = GetLastError();
-			if (err == ERROR_ALREADY_EXISTS)
-			{
-				
-				CloseWxHandle(hmutex);
-				CloseHandle(hmutex);
-				isKilled = true;
-			}else{
-				
-				//OutputDebugString(L"不存在，我也要关闭了句柄");
-				CloseHandle(hmutex);	//也要关掉
-			}
+			HANDLE hmutex = OpenMutex(NULL,TRUE,L"_WeChat_App_Instance_Identity_Mutex_Name");
+			CloseWxHandle(hmutex);
+			CloseHandle(hmutex);
+			isKilled = true;
 		}
 	}
 }
@@ -163,7 +154,8 @@ bool isWechatClose(){
 
 void CloseWxHandle(HANDLE mutex){ 
 
-	//OutputDebugString(L"杀死微信APP");
+	//CloseProcessHandleEx(mutex);
+	OutputDebugString(L"杀死微信APP");
 	CloseProcessHandle(GetCurrentProcessId(), L"_WeChat_App_Instance_Identity_Mutex_Name");
 	//int err = GetLastError();
 	//WCHAR buffer[256] = {0};
