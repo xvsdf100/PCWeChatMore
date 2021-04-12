@@ -195,7 +195,7 @@ void checkInstance(){
 void CWxMoreInstanceDlg::OnBnClickedBtnMore()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	ShellExecute(m_hWnd, _T("open"), _T("http://www.xiaoyutang.net/wordpress/?p=97"), NULL, NULL, SW_SHOWNORMAL);	//测试屏蔽
+	ShellExecute(m_hWnd, _T("open"), _T("http://www.xiaoyutang.net/toptic/%e5%be%ae%e4%bf%a1/pc%e5%be%ae%e4%bf%a1%e5%a4%9a%e5%bc%80%e6%9c%80%e6%96%b0%e4%bb%a3%e7%a0%81%e3%80%90%e5%85%bc%e5%ae%b9%e6%80%a7%e9%9d%9e%e5%b8%b8%e9%ab%98%e3%80%91/"), NULL, NULL, SW_SHOWNORMAL);	//测试屏蔽
 }
 
 //高级版本，可以tab管理现有微信功能
